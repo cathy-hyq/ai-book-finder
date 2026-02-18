@@ -29,7 +29,7 @@
   position: absolute;
   /* 基于图片实际显示尺寸计算位置 */
   left: calc((100% - 414px) / 2 + 329px * 414px / 1211px);
-  top: calc(742px * 414px / 1211px);
+  top: calc(730px * 414px / 1211px);
   width: calc(100px * 414px / 1211px);
   height: calc(100px * 414px / 1211px);
   cursor: pointer;
