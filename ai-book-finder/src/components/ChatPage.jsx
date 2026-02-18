@@ -94,7 +94,7 @@ function ChatPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://web-production-5db05.up.railway.app', {
+      const response = await fetch('https://web-production-5db05.up.railway.app/recommend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: question }),
