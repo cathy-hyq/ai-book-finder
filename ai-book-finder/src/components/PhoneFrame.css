@@ -1,36 +1,29 @@
-.phone-frame-wrapper {
-  width: 100vw;
-  height: 100vh;
-  background: #0a0a0a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
+/* 外层包装 - 黑色背景 */ 
+.phone-frame-wrapper { 
+  width: 100vw; 
+  height: 100vh; 
+  background: #0a0a0a; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  overflow: hidden; }
 
-/* 手机屏幕框 - 自适应一屏高度，永不溢出 */
-.phone-frame {
-  width: 414px;
-  height: 840px;
+/* 手机屏幕框 - 固定尺寸 */ 
+.phone-frame { 
+  width: 394px !important; 
+  height: 800px !important; 
+  background: #000; 
+  position: relative; 
+  overflow: hidden; 
+  border: 3px solid #404040 !important; 
+  border-radius: 12px !important; 
+  box-shadow: 0 0 0 8px #1a1a1a, /* 内阴影 */ 
+  0 10px 50px rgba(0, 0, 0, 0.8) !important; /* 外阴影 */ }
 
-  /* 关键：根据屏幕缩放，不超过视口 */
-  max-height: 92dvh;         /* 优先用 dvh（更准） */
-  max-width: calc(92dvh * (414 / 840));  /* 按比例算出最大宽度 */
-
-  /* 如果浏览器不支持 dvh，会走 vh */
-  max-height: 92vh;
-  max-width: calc(92vh * (414 / 840));
-
-  /* 保持比例缩放：在小屏时自动变小 */
-  width: min(414px, calc(92dvh * (414 / 840)));
-  height: min(840px, 92dvh);
-
-  background: #000;
-  position: relative;
-  overflow: hidden;
-  border: 3px solid #404040;
-  border-radius: 12px;
-  box-shadow:
-    0 0 0 8px #1a1a1a,
-    0 10px 50px rgba(0, 0, 0, 0.8);
-}
+/* 手机内容区域 */ 
+.phone-frame > * { 
+  width: 100% !important; 
+  height: 100% !important; 
+  position: absolute; 
+  top: 0; 
+  left: 0; }
