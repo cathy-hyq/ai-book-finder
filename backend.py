@@ -5,7 +5,7 @@ import numpy as np
 from openai import OpenAI
 
 app = Flask(__name__)
-CORS(app)  # 允许前端跨域访问
+CORS(app, origins=["https://ai-book-finder-yvqn.vercel.app"])
 
 # 初始化OpenAI
 client = OpenAI(api_key="OPENAI_API_KEY")
