@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)  # 允许前端跨域访问
 
 # 初始化OpenAI
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="OPENAI_API_KEY")
 
 # 加载书籍数据
 with open('books_with_embeddings.json', 'r', encoding='utf-8') as f:
