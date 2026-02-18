@@ -21,7 +21,7 @@
 
 /* Ai 徽章点击热区 
    图片尺寸: 1211×2476
-   圆心: (367, 787)
+   圆心: (367, 780)
    半径: 38px
    实际可点击区域设为正方形方便点击
 */
@@ -29,7 +29,7 @@
   position: absolute;
   /* 基于图片实际显示尺寸计算位置 */
   left: calc((100% - 414px) / 2 + 329px * 414px / 1211px);
-  top: calc(749px * 414px / 1211px);
+  top: calc(742px * 414px / 1211px);
   width: calc(100px * 414px / 1211px);
   height: calc(100px * 414px / 1211px);
   cursor: pointer;
