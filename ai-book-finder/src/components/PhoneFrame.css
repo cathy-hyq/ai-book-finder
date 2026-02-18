@@ -10,8 +10,8 @@
 
 /* 手机屏幕框 - 固定尺寸 */ 
 .phone-frame { 
-  width: 294px !important; 
-  height: 600px !important; 
+  width: 394px !important; 
+  height: 800px !important; 
   background: #000; 
   position: relative; 
   overflow: hidden; 
