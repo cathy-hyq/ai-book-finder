@@ -5,7 +5,7 @@ import numpy as np
 from openai import OpenAI
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # 初始化OpenAI
 client = OpenAI(api_key="OPENAI_API_KEY")
@@ -19,6 +19,11 @@ def cosine_similarity(vec1, vec2):
     vec1 = np.array(vec1)
     vec2 = np.array(vec2)
     return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
+
+@app.before_request
+def handle_options():
+    if request.method == "OPTIONS":
+        return '', 200
 
 @app.route('/recommend', methods=['POST', 'OPTIONS'])
 def recommend():
