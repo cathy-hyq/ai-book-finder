@@ -2,13 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import numpy as np
+import os
 from openai import OpenAI
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 # 初始化OpenAI
-client = OpenAI(api_key="OPENAI_API_KEY")
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 # 加载书籍数据
 with open('books_with_embeddings.json', 'r', encoding='utf-8') as f:
