@@ -1,0 +1,46 @@
+.book-detail-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.book-detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* 返回按钮热区 
+   图片尺寸: 1179×2410
+   箭头左端: (20, 84)
+   箭头右上端: (60, 53)
+*/
+.book-back-hotspot {
+  position: absolute;
+  left: calc((100% - 414px) / 2 + 20px * 414px / 1179px);
+  top: calc(53px * 414px / 1179px);
+  width: calc(100px * 414px / 1179px);
+  height: calc(60px * 414px / 1179px);
+  cursor: pointer;
+  z-index: 10;
+  /* 调试时可以打开这行看位置 */
+  /* background: rgba(255, 0, 0, 0.3); */
+}
+
+/* 在小屏幕上调整 */
+@media (max-width: 414px) {
+  .book-back-hotspot {
+    left: calc(20px / 1179 * 100%);
+    top: calc(53px / 2410 * 100%);
+    width: calc(100px / 1179 * 100%);
+    height: calc(60px / 2410 * 100%);
+  }
+}

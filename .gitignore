@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Node
+ai-book-finder/node_modules/
+ai-book-finder/build/
+
+# 大文件/敏感文件
+*.xlsx

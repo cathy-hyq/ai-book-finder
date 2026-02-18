@@ -1,0 +1,59 @@
+.page-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.page-image {
+  /* 保持原始比例，最大宽度限制为手机屏幕宽度 */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Ai 徽章点击热区 
+   图片尺寸: 1211×2476
+   圆心: (367, 787)
+   半径: 38px
+   实际可点击区域设为正方形方便点击
+*/
+.ai-hotspot {
+  position: absolute;
+  /* 基于图片实际显示尺寸计算位置 */
+  left: calc((100% - 414px) / 2 + 329px * 414px / 1211px);
+  top: calc(749px * 414px / 1211px);
+  width: calc(100px * 414px / 1211px);
+  height: calc(100px * 414px / 1211px);
+  cursor: pointer;
+  /* 调试时可以打开这行看位置 */
+  /* background: rgba(255, 0, 0, 0.3); */
+  border-radius: 50%;
+  transition: transform 0.2s;
+  z-index: 10;
+}
+
+/* 在小屏幕上调整（手机） */
+@media (max-width: 414px) {
+  .ai-hotspot {
+    left: calc((367px - 38px) / 1211 * 100%);
+    top: calc((787px - 38px) / 2476 * 100%);
+    width: calc(100px / 1211 * 100%);
+    height: calc(100px / 2476 * 100%);
+  }
+}
+
+.ai-hotspot:hover {
+  transform: scale(1.1);
+}
+
+.ai-hotspot:active {
+  transform: scale(0.95);
+}
