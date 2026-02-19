@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './ChatPage.css';
 import PhoneFrame from './PhoneFrame';
 
+const SCROLL_POS_KEY = 'chatScrollPos';
+
 function ChatPage() {
   const navigate = useNavigate();
   // 从 sessionStorage 恢复聊天记录（关闭标签页后清空）
@@ -13,30 +15,25 @@ function ChatPage() {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-
   const messagesAreaRef = useRef(null);
-  const savedScrollPos = useRef(0);
   const prevLengthRef = useRef(messages.length);
 
+  // 恢复滚动位置 或 滚动到底部
   useEffect(() => {
     if (messages.length > prevLengthRef.current) {
+      // 新消息，滚到底部
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     } else {
+      // 返回页面，恢复上次位置
       if (messagesAreaRef.current) {
-        messagesAreaRef.current.scrollTop = savedScrollPos.current;
+        const saved = sessionStorage.getItem(SCROLL_POS_KEY);
+        if (saved) {
+          messagesAreaRef.current.scrollTop = parseInt(saved);
+        }
       }
     }
     prevLengthRef.current = messages.length;
   }, [messages]);
-
-  useEffect(() => {
-    return () => {
-      if (messagesAreaRef.current) {
-        savedScrollPos.current = messagesAreaRef.current.scrollTop;
-      }
-    };
-  }, []);
-
 
   // 将聊天记录保存到 sessionStorage
   useEffect(() => {
@@ -129,6 +126,14 @@ function ChatPage() {
     }
   };
 
+  // 点击书籍卡片前保存滚动位置
+  const handleBookClick = (bookId) => {
+    if (messagesAreaRef.current) {
+      sessionStorage.setItem(SCROLL_POS_KEY, messagesAreaRef.current.scrollTop);
+    }
+    navigate(`/book/${bookId}`);
+  };
+
   return (
     <PhoneFrame>
       <div className="chat-container">
@@ -194,12 +199,7 @@ function ChatPage() {
                       {msg.books.map((book, bookIndex) => (
                         <div 
                           key={bookIndex}
-                          onClick={() => {
-                            if (messagesAreaRef.current) {
-                              savedScrollPos.current = messagesAreaRef.current.scrollTop;
-                                                        }
-                          navigate(`/book/${book.book_id}`);
-                          }}
+                          onClick={() => handleBookClick(book.book_id)}
                           className="book-card"
                         >
                           <div className="book-info-only">
