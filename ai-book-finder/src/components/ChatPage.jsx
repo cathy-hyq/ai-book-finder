@@ -14,13 +14,19 @@ function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  const prevLengthRef = useRef(0);
+
   // 自动滚动到底部
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
-    scrollToBottom();
+    // 只在消息数量增加时滚动（新消息），返回页面时不触发
+    if (messages.length > prevLengthRef.current) {
+      scrollToBottom();
+    }
+    prevLengthRef.current = messages.length;
   }, [messages]);
 
   // 将聊天记录保存到 sessionStorage
