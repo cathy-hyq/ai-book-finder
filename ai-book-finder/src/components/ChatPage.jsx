@@ -176,8 +176,8 @@ function ChatPage() {
                 <button onClick={() => handleQuickSend('推荐一些关于人生哲学的书')}>
                   推荐一些关于人生哲学的书
                 </button>
-                <button onClick={() => handleQuickSend('有什么书能帮我理解历史大势？')}>
-                  有什么书能帮我理解历史大势？
+                <button onClick={() => handleQuickSend('有什么书能帮我理解历史发展规律？')}>
+                  有什么书能帮我理解历史发展规律？
                 </button>
               </div>
             </div>
