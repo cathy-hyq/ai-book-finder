@@ -14,20 +14,29 @@ function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  const prevLengthRef = useRef(0);
-
-  // 自动滚动到底部
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const messagesAreaRef = useRef(null);
+  const savedScrollPos = useRef(0);
+  const prevLengthRef = useRef(messages.length);
 
   useEffect(() => {
-    // 只在消息数量增加时滚动（新消息），返回页面时不触发
     if (messages.length > prevLengthRef.current) {
-      scrollToBottom();
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      if (messagesAreaRef.current) {
+        messagesAreaRef.current.scrollTop = savedScrollPos.current;
+      }
     }
     prevLengthRef.current = messages.length;
   }, [messages]);
+
+  useEffect(() => {
+    return () => {
+      if (messagesAreaRef.current) {
+        savedScrollPos.current = messagesAreaRef.current.scrollTop;
+      }
+    };
+  }, []);
+
 
   // 将聊天记录保存到 sessionStorage
   useEffect(() => {
@@ -146,7 +155,7 @@ function ChatPage() {
         />
 
         {/* 对话区域 */}
-        <div className="messages-area">
+        <div className="messages-area" ref={messagesAreaRef}>
           {messages.length === 0 ? (
             // 空状态提示
             <div className="empty-state">
