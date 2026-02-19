@@ -194,7 +194,12 @@ function ChatPage() {
                       {msg.books.map((book, bookIndex) => (
                         <div 
                           key={bookIndex}
-                          onClick={() => navigate(`/book/${book.book_id}`)}
+                          onClick={() => {
+                            if (messagesAreaRef.current) {
+                              savedScrollPos.current = messagesAreaRef.current.scrollTop;
+                                                        }
+                          navigate(`/book/${book.book_id}`);
+                          }}
                           className="book-card"
                         >
                           <div className="book-info-only">
