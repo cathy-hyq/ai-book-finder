@@ -29,13 +29,13 @@ def handle_options():
 @app.route('/recommend', methods=['POST', 'OPTIONS'])
 def recommend():
     try:
-        user_prompt = request.json['query']
-        print(f"收到用户请求：{user_prompt}")  # 调试信息
+        user_query = request.json['query']
+        print(f"收到用户请求：{user_query}")  # 调试信息
         
         # 1. 生成用户prompt的embedding
         response = client.embeddings.create(
             model="text-embedding-3-small",
-            input=user_prompt
+            input=user_query
         )
         user_vector = response.data[0].embedding
         
@@ -57,12 +57,13 @@ def recommend():
             for book, _ in top_6
         ])
         
-        llm_prompt = f"""
+        system_prompt = f"""
             ## 角色
             你是一位专业的书籍推荐顾问，擅长根据用户需求精准匹配书籍。
             
             ## 任务
-            从6本候选书籍中，选择3本最符合用户需求的书进行推荐。
+            从以下6本候选书籍中，选择3本最符合用户需求的书进行推荐：
+            {candidates_text}
 
             ## 要求
             1. 深入理解用户需求的核心诉求（情感需求、阅读目的、知识获取方向等）；
@@ -84,17 +85,17 @@ def recommend():
             ]
             }}
             只输出JSON，不要其他内容。
+        """
 
+        user_prompt = f"""
             ## 用户需求
-            {user_prompt}
-
-            ## 候选书籍
-            {candidates_text}
+            {user_query}
             """
-            
+        
         llm_response = client.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[{"role": "user", "content": llm_prompt}],
+            messages=[{"role": "system", "content": system_prompt}, 
+                      {"role": "user", "content": user_prompt}],
             temperature=0.7
         )
         
